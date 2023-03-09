@@ -1,0 +1,46 @@
+#contenedorBody {
+    margin: 50px;
+    background-color: #f5f5f5;
+    
+}
+
+.colornav {
+    background-color: #f5f5f5;
+}
+
+.logo {
+
+   height: 370px;
+ 
+}
+
+
+
+.imgProd {
+
+    height: 170px;
+    object-fit: contain;
+    margin: 0.5rem;
+}
+
+.colorBtn {
+    color: white;
+    background-color: #fcdb58;
+}
+
+.colorBtn:hover {
+    background-color: #aab5bd;
+    color: white;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+    
+}
+
+.btnMasMenos {
+    padding: 0.5rem 0.5rem;
+    border-bottom-width: 1px;
+}
