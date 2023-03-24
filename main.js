@@ -1,43 +1,24 @@
 /** MUNDO BEBE - CARRITO DE COMPRAS **/
+const totalCompra = document.getElementById("totalCompra");
+const productos = [];
 
-//1)Mostrar productos en el HTML de forma dinamica.
-//2)Agregar productos al carrito.
-//3)Evitar la carga de productos repetidos en el carrito.
-//4)Mostrar el carrito en el HTML.
-//5)Eliminar productos del carrito.
-//6)Calcular el total de la compra.
-//7)Vaciar el carrito.
-//8)Guardar el carrito en el localStorage.
+//Fetch
 
-//falta agregar: 9) Boton de finalizar compra.
-//10) boton mas y menos en el producto.(p/cambiar cantidades del producto en el carrito)
-//////////////////////////////////////////////
+const productosURL = "/productos.json";
 
+const contenedorProductos = document.getElementById("contenedorProd");
 
-class Producto {
-    constructor(id, nombre, modelo, precio, img) {
-        this.id = id;
-        this.nombre = nombre;
-        this.modelo = modelo;
-        this.precio = precio;
-        this.img = img;
-        this.cantidad = 1;
-    }
-}
+fetch(productosURL)
+    .then(response => response.json())
+    .then(datos => {
+        console.log(datos)
+        datos.forEach(producto => {
+            productos.push(producto)
+            console.log(producto)
+        })
+        mostrarProd()
+    })
 
-const cochecitoUno = new Producto(1, "Cochecito", "Verona", 60000, "img/cochecito1.png");
-const cochecitoDos = new Producto(2, "Cochecito", "Berlin", 55000, "img/cochecito2.png");
-const cochecitoTres = new Producto(3, "Cochecito", "Barcelona", 72000, "img/cochecito3.png");
-const butacaUno = new Producto(4, "Butaca", "Neo", 80000, "img/butaca1.png");
-const butacaDos = new Producto(5, "Butaca", "Trinity", 83000, "img/butaca2.png");
-const butacaTres = new Producto(6, "Butaca", "Morfeo", 85000, "img/butaca3.png");
-const sillitaUno = new Producto(7, "Sillita", "Luna", 89000, "img/silladecomer1.png");
-const sillitaDos = new Producto(8, "Sillita", " Sol", 94000, "img/silladecomer2.png");
-const sillitaTres = new Producto(9, "Sillita", "Estrella", 91000, "img/silladecomer3.png");
-
-//Almaceno los productos en un Array.
-
-const productos = [cochecitoUno, cochecitoDos, cochecitoTres, butacaUno, butacaDos, butacaTres, sillitaUno, sillitaDos, sillitaTres];
 
 //Array del carrito.
 
@@ -45,23 +26,19 @@ let carrito = [];
 
 /** Local Storage */
 
-if(localStorage.getItem("carrito")){
+if (localStorage.getItem("carrito")) {
     carrito = JSON.parse(localStorage.getItem("carrito"));
 }
 
 
-
-
-//Verifico por consola.
-console.log(productos);
-
 //Modifico el DOM mostrando los productos.
 
-const contenedorProd = document.getElementById("contenedorProd");
 
 //Funcion para mostrar los prods en stock
 
 const mostrarProd = () => {
+    const contenedorProd = document.getElementById("contenedorProd");
+
     productos.forEach(producto => {
         const card = document.createElement("div");
         card.classList.add("text-center", "col-xl-4", "col-md-6", "col-sm-12");
@@ -72,10 +49,10 @@ const mostrarProd = () => {
         <h2> ${producto.nombre} </h2>
         <p>${producto.modelo}</p>
         <p>${producto.precio}</p>
-        <button class = "btn colorBtn" id= "boton${producto.id}" > Agregar <img src="./img/agregarcarrito.png" alt= "icono algregar al carrito"> </button>
+        <button class = "btn colorBtn  btnToast card" id= "boton${producto.id}" > Agregar <img src="./img/agregarcarrito.png" alt= "icono agregar al carrito"> </button>
             </div>
         </div>`
-      
+
 
         contenedorProd.appendChild(card);
 
@@ -83,11 +60,39 @@ const mostrarProd = () => {
         const boton = document.getElementById(`boton${producto.id}`);
         boton.addEventListener(`click`, () => {
             agregarAlCarrito(producto.id);
+            Toastify ({
+                text: "Producto agregado al Carrito",
+                duration: 1000
+            }).showToast();
         })
     })
+
+
 }
 
-mostrarProd();
+
+
+let cerrar = document.querySelectorAll(".close")[0];
+let abrir = document.querySelectorAll(".verCar")[0];
+let modal = document.querySelectorAll(".modal")[0];
+let modalContain = document.querySelectorAll(".modalContainer")[0];
+
+abrir.addEventListener("click", function (e) {
+    e.preventDefault();
+    modalContain.style.opacity = "1";
+    modalContain.style.visibility = "visible";
+    modal.classList.toggle("modalClose");
+});
+
+cerrar.addEventListener("click", function () {
+    modal.classList.toggle("modalClose");
+
+    setTimeout(function () {
+        modalContain.style.opacity = "0";
+        modalContain.style.visibility = "hidden";
+    }, 645)
+})
+
 
 
 //Funcion agregar al carrito:
@@ -115,23 +120,22 @@ const verCarrito = document.getElementById("verCarrito");
 
 verCarrito.addEventListener("click", () => {
     mostrarCarrito();
+
 })
 
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML = "";
     carrito.forEach(producto => {
         const card = document.createElement("div");
-        card.classList.add("text-center", "col-xl-4", "col-md-6", "col-sm-12");
+        card.classList.add("text-center", "col-xl-6", "col-md-6", "col-sm-12");
         card.innerHTML = `
         <div class = "card">
-            <img src = "${producto.img}" class = "card-img-tom imgProd" alt = "${producto.nombre}";>
+            <img src = "${producto.img}" class = "card-img-tom imgProd "  alt = "${producto.nombre}";>
         <div class = "card-body">
         <h3> ${producto.nombre} </h3>
         <p>${producto.modelo}</p>
         <p>${producto.precio}</p>
         <p>Cantidad: ${producto.cantidad}</p>
-        <button class="btn colorBtn btnMasMenos ">+</button>
-        <button class="btn colorBtn btnMasMenos " id ="MenosCantidad">-</button></p>
         <hr>
         <button class = "btn colorBtn"  id = "eliminar${producto.id}" >Eliminar</button>
             </div>
@@ -150,7 +154,7 @@ const mostrarCarrito = () => {
     total();
 }
 
- //Funcion eliminar prod del carrito
+//Funcion eliminar prod del carrito
 
 const eliminarDelCarrito = (id) => {
     const producto = carrito.find(producto => producto.id === id);
@@ -160,7 +164,13 @@ const eliminarDelCarrito = (id) => {
 
     //LS
     localStorage.setItem("carrito", JSON.stringify(carrito));
-} 
+}
+
+
+
+
+
+
 
 
 
@@ -178,20 +188,18 @@ const eliminarCarrito = () => {
 
     //LS
     localStorage.clear();
-} 
+}
 
 
 //Mensaje TOTAL COMPRA:
 
-const totalCompra = document.getElementById("totalCompra");
 
-const total = () => {
+
+function total() {
     let montoCompra = 0;
     carrito.forEach(producto => {
-       montoCompra = montoCompra + producto.precio * producto.cantidad;
+        montoCompra = montoCompra + producto.precio * producto.cantidad;
     })
     totalCompra.innerHTML = `Total $${montoCompra}`;
 }
-
-
 

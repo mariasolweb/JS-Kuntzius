@@ -1,0 +1,75 @@
+[{
+        "id": 1,
+        "nombre": "Cochecito",
+        "modelo": "Verona",
+        "precio": 60000,
+        "img": "img/cochecito1.png",
+        "cantidad": 1
+    },
+
+    {
+        "id": 2,
+        "nombre": "Cochecito",
+        "modelo": "Berlin",
+        "precio": 55000,
+        "img": "img/cochecito2.png",
+        "cantidad": 1
+    },
+
+    {
+        "id": 3,
+        "nombre": "Cochecito",
+        "modelo": "Barcelona",
+        "precio": 72000,
+        "img": "img/cochecito3.png",
+        "cantidad": 1
+    },
+    {
+        "id": 4,
+        "nombre": "Butaca",
+        "modelo": "Neo",
+        "precio": 80000,
+        "img": "img/butaca1.png",
+        "cantidad": 1
+    },
+    {
+        "id": 5,
+        "nombre": "Butaca",
+        "modelo": "Trinity",
+        "precio": 83000,
+        "img": "img/butaca2.png",
+        "cantidad": 1
+    },
+    {
+        "id": 6,
+        "nombre": "Butaca",
+        "modelo": "Morfeo",
+        "precio": 85000,
+        "img": "img/butaca3.png",
+        "cantidad": 1
+    },
+    {
+        "id": 7,
+        "nombre": "Sillita",
+        "modelo": "Luna",
+        "precio": 89000,
+        "img": "img/silladecomer1.png",
+        "cantidad": 1
+    },
+    {
+        "id": 8,
+        "nombre": "Sillita",
+        "modelo": "Sol",
+        "precio": 94000,
+        "img": "img/silladecomer2.png",
+        "cantidad": 1
+    },
+    {
+        "id": 9,
+        "nombre": "Sillita",
+        "modelo": "Estrella",
+        "precio": 91000,
+        "img": "img/silladecomer3.png",
+        "cantidad": 1
+    }
+]
